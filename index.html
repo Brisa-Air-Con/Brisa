@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Close Window</title>
+    <script>
+        // Function to send a webhook with the recordId
+        async function sendWebhookAndClose() {
+            try {
+                // Get the recordId from the URL query parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const recordId = urlParams.get("recordId");
+
+                // Replace with your webhook URL
+                const webhookUrl = "let webhookUrl = "https://hooks.airtable.com/workflows/v1/genericWebhook/app1K9dvypYgNumCY/wfl1gFnWB4nmBhR0r/wtrFelcdrooVDDEqR";
+
+                // Send the webhook with the recordId
+                await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ recordId: recordId })
+                });
+
+                // Close the window shortly after the request
+                setTimeout(() => {
+                    window.close();
+                }, 100); // Adjust delay if needed
+
+            } catch (error) {
+                console.error("Failed to send webhook:", error);
+            }
+        }
+
+        // Run the function immediately
+        window.onload = sendWebhookAndClose;
+    </script>
+</head>
+<body>
+    <p>Sending data and closing...</p>
+</body>
+</html>
